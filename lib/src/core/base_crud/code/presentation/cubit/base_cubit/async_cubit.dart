@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -8,68 +10,72 @@ import '../../../../../widgets/custom_messages.dart';
 import '../../../domain/base_domain_imports.dart';
 
 part 'async_state.dart';
+part 'async_event.dart';
 
-abstract class AsyncCubit<T> extends Cubit<AsyncState<T>> {
+abstract class AsyncCubit<T> extends Bloc<AsyncEvent<T>, AsyncState<T>> {
   AsyncCubit(T initialData) : super(AsyncState.initial(data: initialData)) {
     baseCrudUseCase = injector();
+    on<ExecuteAsyncEvent<T>>(executeAsyncEvent);
   }
   late final BaseCrudUseCase baseCrudUseCase;
-  void setLoading() {
+  void setLoading(Emitter<AsyncState<T>> emit) {
     emit(state.loading());
   }
 
-  void setLoadingMore() {
+  void setLoadingMore(Emitter<AsyncState<T>> emit) {
     emit(state.loadingMore());
   }
 
-  void setSuccess({required T data}) {
+  void setSuccess(Emitter<AsyncState<T>> emit, {required T data}) {
     emit(state.success(data: data));
   }
 
-  void setError({String? errorMessage, bool showToast = false}) {
+  void setError(Emitter<AsyncState<T>> emit,
+      {String? errorMessage, bool showToast = false}) {
     if (showToast && errorMessage != null) {
       MessageUtils.showSnackBar(errorMessage);
     }
     emit(state.error(errorMessage: errorMessage));
   }
 
-  void reset() {
+  void reset(Emitter<AsyncState<T>> emit) {
     emit(AsyncState.initial(data: state.data));
   }
 
-  void updateData(T data) {
+  void updateData(Emitter<AsyncState<T>> emit, T data) {
     emit(state.copyWith(data: data));
   }
 
-  void updateErrorMessage(String? errorMessage) {
+  void updateErrorMessage(Emitter<AsyncState<T>> emit, String? errorMessage) {
     emit(state.copyWith(errorMessage: errorMessage));
   }
 
   bool get isLoading => state.isLoading;
 
+  FutureOr<void> executeAsyncEvent(
+    ExecuteAsyncEvent<T> event,
+    Emitter<AsyncState<T>> emit,
+  ) async =>
+      executeAsync;
+
   Future<void> executeAsync({
     required Future<Result<T, Failure>> Function() operation,
     Function(T)? successEmitter,
+    required Emitter<AsyncState<T>> emit,
   }) async {
-    setLoading();
+    setLoading(emit);
     final result = await operation();
     result.when(
       (success) {
-        setSuccess(data: success);
+        setSuccess(emit, data: success);
         if (successEmitter != null) {
           successEmitter(success);
         }
       },
       (failure) {
         MessageUtils.showSnackBar(failure.message);
-        setError(errorMessage: failure.message);
+        setError(emit, errorMessage: failure.message);
       },
     );
-  }
-
-  @override
-  void emit(AsyncState<T> state) {
-    if (isClosed) return;
-    super.emit(state);
   }
 }

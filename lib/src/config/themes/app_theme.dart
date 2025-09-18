@@ -8,8 +8,8 @@ class AppTheme {
       primarySwatch: AppColors.primary.toMaterialColor(),
       primaryColor: AppColors.primary,
       useMaterial3: true,
-      hoverColor: Colors.transparent,
-      splashColor: Colors.transparent,
+      hoverColor: Colors.white,
+      splashColor: Colors.white,
       fontFamily: ConstantManager.fontFamily,
       bottomSheetTheme: const BottomSheetThemeData(
         modalBackgroundColor: AppColors.white,

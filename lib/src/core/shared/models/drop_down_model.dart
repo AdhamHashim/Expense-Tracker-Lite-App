@@ -1,4 +1,3 @@
- 
 import '../../../config/res/config_imports.dart';
 
 class DropDownModel {
@@ -13,7 +12,7 @@ class DropDownModel {
   factory DropDownModel.initial() {
     return DropDownModel(
       id: ConstantManager.zero,
-      name: ConstantManager.emptyText,
+      name: ConstantManager.appName,
     );
   }
 

@@ -13,11 +13,14 @@ class AppMargin {
   static double mH16 = 16.0.h;
   static double mH18 = 18.0.h;
   static double mH20 = 20.0.h;
+  static double mH25 = 25.0.h;
   static double mH30 = 30.0.h;
+  static double mH40 = 40.0.h;
 
   // VALUES FOR WIDTH
   static double mW2 = 2.0.w;
   static double mW4 = 4.0.w;
+  static double mW6 = 6.0.w;
   static double mW8 = 8.0.w;
   static double mW10 = 10.0.w;
   static double mW12 = 12.0.w;
@@ -43,6 +46,7 @@ class AppPadding {
   // VALUES FOR WIDTH
   static double pW2 = 2.0.h;
   static double pW4 = 4.0.h;
+  static double pW6 = 6.0.h;
   static double pW8 = 8.0.w;
   static double pW10 = 10.0.w;
   static double pW12 = 12.0.w;
@@ -50,6 +54,7 @@ class AppPadding {
   static double pW16 = 16.0.w;
   static double pW18 = 18.0.w;
   static double pW20 = 20.0.w;
+  static double pW30 = 30.0.w;
   static double pW60 = 60.0.w;
 }
 
@@ -133,4 +138,5 @@ class AppCircular {
   static double r15 = 15.0.r;
   static double r20 = 20.0.r;
   static double r40 = 40.0.r;
+  static double infinity = 500.0.r;
 }

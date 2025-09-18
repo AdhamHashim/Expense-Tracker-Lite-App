@@ -18,6 +18,7 @@ import '../../base_crud/code/presentation/cubit/get_base_name_and_id/get_base_na
     as _i30;
 import '../../network/dio_service.dart' as _i37;
 import '../../network/network_service.dart' as _i632;
+import '../user_cubit/user_cubit.dart' as _i632;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,6 +33,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i30.GetBaseEntityCubit<dynamic>>(
         () => _i30.GetBaseEntityCubit());
+    gh.lazySingleton<_i632.UserCubit>(() => _i632.UserCubit());
     gh.lazySingleton<_i632.NetworkService>(() => _i37.DioService());
     gh.lazySingleton<_i241.BaseRemoteDataSource>(() =>
         _i241.BaseRemoteDataSourceImpl(dioService: gh<_i632.NetworkService>()));

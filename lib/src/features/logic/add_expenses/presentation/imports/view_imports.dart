@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+import '../../../../../config/language/locale_keys.g.dart';
+import '../../../../../config/res/assets.gen.dart';
+import '../../../../../config/res/config_imports.dart';
+import '../../../../../core/extensions/context_extension.dart';
+import '../../../../../core/extensions/padding_extension.dart';
+import '../../../../../core/extensions/seperator_helper.dart';
+import '../../../../../core/extensions/sized_box_helper.dart';
+import '../../../../../core/extensions/text_style_extensions.dart';
+import '../../../../../core/helpers/validators.dart';
+import '../../../../../core/shared/models/drop_down_model.dart';
+import '../../../../../core/widgets/buttons/custom_animated_button.dart';
+import '../../../../../core/widgets/buttons/loading_button.dart';
+import '../../../../../core/widgets/drop_down_button.dart';
+import '../../../../shared_widgets/imports/shared_widgets_imports.dart';
+import '../../models/category_model.dart';
+
+part '../screen/add_expenses_screen.dart';
+part '../widgets/add_expenses_body.dart';
+part '../widgets/add_expenses_form_widget.dart';
+part '../widgets/categories_section_widget.dart';

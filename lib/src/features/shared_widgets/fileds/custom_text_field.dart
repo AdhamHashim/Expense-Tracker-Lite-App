@@ -54,7 +54,7 @@ class CustomTextFiled extends StatelessWidget {
           replacement: const SizedBox.shrink(),
           child: Text(
             title ?? ConstantManager.emptyText,
-            style: const TextStyle().setPrimaryColor.s13.bold,
+            style: const TextStyle().setBlackColor.s13.bold,
           ),
         ),
         DefaultTextField(
@@ -71,7 +71,7 @@ class CustomTextFiled extends StatelessWidget {
           readOnly: readOnly,
           onSubmitted: onSubmitted,
           onTap: onTap,
-          fillColor: fillColor,
+          fillColor: AppColors.fill,
           action: textInputAction,
           onChanged: onChanged,
           validator: validator,
@@ -81,7 +81,7 @@ class CustomTextFiled extends StatelessWidget {
           ),
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
-          style: const TextStyle().setMainTextColor.s12.medium,
+          style: const TextStyle().setBlackColor.s12.medium,
         ),
       ],
     );

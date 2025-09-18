@@ -48,7 +48,7 @@ Multi_Result (Optional - functional programming helpers)
 
 Equatable
 
-Retrofit or Dio (for networking)
+Dio (for networking)
 
 📌 Why Use This Template?
 This template is intended to reduce boilerplate and encourage separation of concerns from the start of your Flutter project. It is perfect for developers who want a head start on building production-level apps using clean architectural principles.

@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import '../../../config/res/config_imports.dart';
 import '../../extensions/text_style_extensions.dart';
 
-
 class DefaultTextField extends StatefulWidget {
   final String? title;
   final bool secure;
@@ -145,7 +144,9 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _isSecure ?const Icon(Icons.visibility) :const Icon(Icons.visibility),
+                    _isSecure
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility),
                   ],
                 ),
               )
@@ -166,9 +167,13 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
                 )
               : BorderSide.none,
         ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppCircular.r8),
+          borderSide: const BorderSide(color: AppColors.border),
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppCircular.r8),
-          borderSide: const BorderSide(color: AppColors.white),
+          borderSide: const BorderSide(color: AppColors.border),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppCircular.r8),

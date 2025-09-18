@@ -100,4 +100,58 @@ abstract class LocaleKeys {
   static const String _please = 'please';
   static String get please => _please.tr();
 
+  static const String _goodMorning = 'good_morning';
+  static String get goodMorning => _goodMorning.tr();
+
+  static const String _totalBalance = 'total_balance';
+  static String get totalBalance => _totalBalance.tr();
+
+  static const String _income = 'income';
+  static String get income => _income.tr();
+
+  static const String _expenses = 'expenses';
+  static String get expenses => _expenses.tr();
+
+  static const String _recentExpenses = 'recent_expenses';
+  static String get recentExpenses => _recentExpenses.tr();
+
+  static const String _seeAll = 'see_all';
+  static String get seeAll => _seeAll.tr();
+
+  static const String _manally = 'manally';
+  static String get manally => _manally.tr();
+
+  static const String _addExpense = 'add_expense';
+  static String get addExpense => _addExpense.tr();
+
+  static const String _categories = 'categories';
+  static String get categories => _categories.tr();
+
+  static const String _amount = 'amount';
+  static String get amount => _amount.tr();
+
+  static const String _date = 'date';
+  static String get date => _date.tr();
+
+  static const String _attachReceipt = 'attach_receipt';
+  static String get attachReceipt => _attachReceipt.tr();
+
+  static const String _uploadImage = 'upload_image';
+  static String get uploadImage => _uploadImage.tr();
+
+  static const String _save = 'save';
+  static String get save => _save.tr();
+
+  static const String _myName = 'my_name';
+  static String get myName => _myName.tr();
+
+  static const String _select = 'select';
+  static String get select => _select.tr();
+
+  static const String _enter = 'enter';
+  static String get enter => _enter.tr();
+
+  static const String _currency = 'currency';
+  static String get currency => _currency.tr();
+
 }

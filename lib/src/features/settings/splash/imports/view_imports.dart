@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/res/assets.gen.dart';
 import '../../../../config/res/config_imports.dart';
 import '../../../../core/extensions/context_extension.dart';
-import '../../../../core/helpers/helpers.dart';
+import '../../../../core/extensions/padding_extension.dart';
 import '../../../../core/navigation/navigator.dart';
-import '../../../../core/notification/notification_service.dart';
-import '../../../../core/shared/user_cubit/user_cubit.dart' show UserCubit;
+import '../../../logic/home/presentation/imports/presentation_imports.dart';
 
-part '../cubit/splash_state.dart';
-part '../cubit/splash_cubit.dart';
+part '../bloc/splash_state.dart';
+part '../bloc/splash_bloc.dart';
 part '../screens/splash_screen.dart';
+part '../bloc/splash_events.dart';

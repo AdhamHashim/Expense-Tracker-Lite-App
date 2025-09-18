@@ -12,6 +12,8 @@ analyzer:
     parameter_assignments: error
     prefer_relative_imports: error
     unnecessary_this: error
+    deprecated_member_use_from_same_package: ignore
+    deprecated_member_use: ignore
 
 linter:
   rules:

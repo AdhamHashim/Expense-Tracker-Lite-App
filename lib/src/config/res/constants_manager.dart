@@ -4,7 +4,7 @@ final GetIt injector = GetIt.instance;
 
 class ConstantManager {
   static const String bundleId = 'com.flutter.app_name';
-  static const String appName = 'Flutter_base';
+  static const String appName = 'INOVOLA Expense Tracker Lite App';
   static const String fontFamily = 'IBM';
   static const String token = 'token';
   static const String projectName = 'Flutter_base';

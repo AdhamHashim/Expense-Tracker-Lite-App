@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import '../../../config/res/config_imports.dart';
 import '../../helpers/cache_service.dart';
 import '../../network/log_interceptor.dart';
@@ -13,6 +14,7 @@ part 'user_utils.dart';
 const String _userKey = 'user';
 const String _tokenKey = 'token';
 
+@LazySingleton()
 class UserCubit extends Cubit<UserState> with UserUtils {
   UserCubit() : super(UserState.initial());
 
