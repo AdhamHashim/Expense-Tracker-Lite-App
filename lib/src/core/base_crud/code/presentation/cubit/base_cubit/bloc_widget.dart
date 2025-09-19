@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'async_cubit.dart';
 
-abstract class BlocStatelessWidget<C extends AsyncCubit>
+abstract class BlocStatelessWidget<C extends AsyncBloc>
     extends StatelessWidget {
   const BlocStatelessWidget({super.key});
 
@@ -13,7 +13,7 @@ abstract class BlocStatelessWidget<C extends AsyncCubit>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AsyncCubit>(
+    return BlocProvider<AsyncBloc>(
       create: (context) => create,
       child: Builder(builder: (context) {
         final cubit = BlocProvider.of<C>(context);
@@ -23,7 +23,7 @@ abstract class BlocStatelessWidget<C extends AsyncCubit>
   }
 }
 
-abstract class BlocStatefulWidget<C extends AsyncCubit> extends StatefulWidget {
+abstract class BlocStatefulWidget<C extends AsyncBloc> extends StatefulWidget {
   const BlocStatefulWidget({super.key});
 
   C get create;
@@ -38,7 +38,7 @@ abstract class BlocStatefulWidget<C extends AsyncCubit> extends StatefulWidget {
   State<BlocStatefulWidget<C>> createState() => _BlocStatefulWidgetState<C>();
 }
 
-class _BlocStatefulWidgetState<C extends AsyncCubit>
+class _BlocStatefulWidgetState<C extends AsyncBloc>
     extends State<BlocStatefulWidget<C>> {
   @override
   void initState() {
@@ -54,7 +54,7 @@ class _BlocStatefulWidgetState<C extends AsyncCubit>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AsyncCubit>(
+    return BlocProvider<AsyncBloc>(
       create: (context) => widget.create,
       child: Builder(builder: (context) {
         final cubit = BlocProvider.of<C>(context);

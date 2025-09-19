@@ -71,6 +71,7 @@ class CustomTextFiled extends StatelessWidget {
           readOnly: readOnly,
           onSubmitted: onSubmitted,
           onTap: onTap,
+          
           fillColor: AppColors.fill,
           action: textInputAction,
           onChanged: onChanged,

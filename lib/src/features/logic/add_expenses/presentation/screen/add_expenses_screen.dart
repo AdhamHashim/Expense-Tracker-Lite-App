@@ -5,7 +5,17 @@ class AddExpensesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _AddExpensesView();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CategoryBloc>(
+          create: (_) => CategoryBloc(),
+        ),
+        BlocProvider<CurrencyBloc>(
+          create: (_) => CurrencyBloc(),
+        ),
+      ],
+      child: const _AddExpensesView(),
+    );
   }
 }
 

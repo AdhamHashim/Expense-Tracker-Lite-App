@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'src/app.dart';
 import 'src/config/language/languages.dart';
 import 'src/config/res/config_imports.dart';
@@ -17,6 +18,9 @@ import 'src/core/network/backend_configuation.dart';
 import 'src/core/shared/functions/setup_service_locators.dart';
 import 'src/core/shared/bloc_observer.dart';
 import 'src/core/widgets/exeption_view.dart';
+import 'src/features/logic/add_expenses/models/category_entity.dart';
+import 'src/features/logic/main_tab/models/balance_entity.dart';
+import 'src/features/logic/main_tab/models/expenses_entity.dart';
 
 void main() async {
   Helpers.changeStatusbarColor(
@@ -26,12 +30,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait(
     [
-      // Firebase.initializeApp(),
+      Hive.initFlutter(),
       EasyLocalization.ensureInitialized(),
       CacheStorage.init(),
       ScreenUtil.ensureScreenSize()
     ],
   );
+
+  Hive.registerAdapter(CategoryEntityAdapter());
+  Hive.registerAdapter(BalanceEntityAdapter());
+  Hive.registerAdapter(ExpensesEntityAdapter());
+
+  await Hive.openBox(HiveBoxesConstant.balanceBox);
+  await Hive.openBox(HiveBoxesConstant.categoryBox);
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,

@@ -12,8 +12,8 @@ import '../../../domain/base_domain_imports.dart';
 part 'async_state.dart';
 part 'async_event.dart';
 
-abstract class AsyncCubit<T> extends Bloc<AsyncEvent<T>, AsyncState<T>> {
-  AsyncCubit(T initialData) : super(AsyncState.initial(data: initialData)) {
+abstract class AsyncBloc<T> extends Bloc<AsyncEvent<T>, AsyncState<T>> {
+  AsyncBloc(T initialData) : super(AsyncState.initial(data: initialData)) {
     baseCrudUseCase = injector();
     on<ExecuteAsyncEvent<T>>(executeAsyncEvent);
   }

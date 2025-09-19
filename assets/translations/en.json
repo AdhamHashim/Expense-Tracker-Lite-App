@@ -49,5 +49,9 @@
   "my_name": "Adham Hashim",
   "select": "Select",
   "enter": "Enter",
-  "currency": "Currency"
+  "currency": "Currency",
+  "image_upload_succefully": "The image has been uploaded successfully",
+  "addexpenses_succefully": "The Expense has been added successfully",
+  "title": "Title",
+  "add_category": "Add Category"
 }

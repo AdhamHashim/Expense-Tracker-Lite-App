@@ -12,20 +12,20 @@ Future<DateTime?> showCustomDatePicker({
     locale: Languages.currentLanguage.locale,
     context: Go.context,
     initialDate: DateTime.now(),
-    firstDate: DateTime.now(),
+    firstDate: DateTime(2022),
     initialEntryMode: DatePickerEntryMode.calendarOnly,
     lastDate: DateTime.now().add(const Duration(days: 365 * 4)),
     builder: (context, child) {
       return Theme(
         data: Theme.of(context).copyWith(
           colorScheme: const ColorScheme.light(
-            primary: AppColors.primary,
-            onPrimary: AppColors.white,
-            onSurface: AppColors.primary,
+            primary: AppColors.softBlue,
+            onPrimary: AppColors.black,
+            onSurface: AppColors.black,
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              foregroundColor: AppColors.primary,
+              foregroundColor: AppColors.black,
             ),
           ),
         ),

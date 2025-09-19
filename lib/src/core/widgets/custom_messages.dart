@@ -14,11 +14,11 @@ class MessageUtils {
       content: Text(
         message,
         style: TextStyle(
-          color: textColor ?? Colors.red,
+          color: textColor ?? Colors.white,
           fontSize: FontSize.s14,
         ),
       ),
-      backgroundColor: backgroundColor ?? AppColors.white,
+      backgroundColor: backgroundColor ?? AppColors.main,
       behavior: SnackBarBehavior.floating,
     );
     ScaffoldMessenger.of(context ?? Go.navigatorKey.currentContext!)

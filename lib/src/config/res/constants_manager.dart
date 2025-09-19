@@ -35,3 +35,75 @@ class ConstantManager {
   static const int rateCount = 5;
   static const double minRateCount = 1;
 }
+
+class HiveBoxesConstant {
+  static const String balanceBox = "Balance_Box";
+  static const String categoryBox = "Category_Box";
+
+  static const String balanceObject = "Balance_Object";
+  static const String categoryList = "Category_List";
+
+  static const int categoryTypeID = 0;
+  static const int expensesTypeID = 1;
+  static const int balanceTypeID = 2;
+
+  static final getBalanceBox = Hive.box(balanceBox);
+  static final getCategoryBox = Hive.box(
+    categoryBox,
+  );
+
+  static int generateRandomId() {
+    final random = Random();
+    return random.nextInt(1000000); // توليد رقم من 0 إلى 999999
+  }
+
+  static Future<BalanceEntity?> getBalance() async {
+    final data = getBalanceBox.get(balanceObject);
+    if (data != null) {
+      return BalanceEntity.fromJson(
+        Map<String, dynamic>.from(data),
+      );
+    }
+    return null;
+  }
+
+  static Future<List<CategoryEntity>> getCategories() async {
+    final data = await getCategoryBox.get(categoryList);
+    if (data != null && data.isNotEmpty) {
+      return (data as List).cast<CategoryEntity>();
+    }
+    return [];
+  }
+
+  Future<void> putBalance(AddExpensesParams params) async {
+    final balanceEntity = await getBalance();
+    if (balanceEntity != null) {
+      final newExpnse = params.toModel();
+      final updatedExpenses = List<ExpensesEntity>.from(balanceEntity.expenses)
+        ..add(newExpnse);
+
+      final incomeBalance =
+          balanceEntity.totalBalance - newExpnse.amountAfterConvertToDollar;
+
+      final expensesBalance =
+          balanceEntity.expensesBalance + newExpnse.amountAfterConvertToDollar;
+
+      final updatedBalance = BalanceEntity(
+        totalBalance: balanceEntity.totalBalance,
+        incomeBalnce: incomeBalance,
+        expensesBalance: expensesBalance,
+        expenses: updatedExpenses,
+      );
+
+      await getBalanceBox.put(balanceObject, updatedBalance);
+    }
+  }
+
+  static Future<void> putCategories(CategoryEntity? category) async {
+    final List<CategoryEntity> items = await getCategories();
+    if (category != null) {
+      items.add(category);
+    }
+    await getCategoryBox.put(categoryList, items);
+  }
+}

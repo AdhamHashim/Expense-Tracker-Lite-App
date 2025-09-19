@@ -154,4 +154,16 @@ abstract class LocaleKeys {
   static const String _currency = 'currency';
   static String get currency => _currency.tr();
 
+  static const String _imageUploadSuccefully = 'image_upload_succefully';
+  static String get imageUploadSuccefully => _imageUploadSuccefully.tr();
+
+  static const String _addexpensesSuccefully = 'addexpenses_succefully';
+  static String get addexpensesSuccefully => _addexpensesSuccefully.tr();
+
+  static const String _title = 'title';
+  static String get title => _title.tr();
+
+  static const String _addCategory = 'add_category';
+  static String get addCategory => _addCategory.tr();
+
 }

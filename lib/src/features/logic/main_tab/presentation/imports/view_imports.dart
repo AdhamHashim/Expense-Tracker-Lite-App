@@ -1,4 +1,6 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../config/language/locale_keys.g.dart';
 import '../../../../../config/res/assets.gen.dart';
 import '../../../../../config/res/config_imports.dart';
@@ -9,6 +11,7 @@ import '../../../../../core/navigation/navigator.dart';
 import '../../../../../core/shared/models/drop_down_model.dart';
 import '../../../../../core/widgets/drop_down_button.dart';
 import '../../../view_all_expenses/presentation/imports/view_imports.dart';
+import '../../models/balance_entity.dart';
 
 part '../screen/main_tab_view.dart';
 part '../widgets/main_tab_body.dart';
@@ -28,3 +31,8 @@ part '../widgets/header_components/card_with_circle_bg_widget.dart';
 part '../widgets/balance_card_components/income_with_expenses_widget.dart';
 part '../widgets/balance_card_components/total_balance_widget.dart';
 part '../widgets/expnses_components/view_all_expenses_widget.dart';
+
+//...Blocs
+part '../blocs/balance_bloc.dart';
+part '../blocs/balance_event.dart';
+part '../blocs/balnce_stat.dart';
