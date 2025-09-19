@@ -24,9 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScaffold(
-      body: const _HomeBody(),
-      bottomNavigationBar: _BottomNavigationBarWidget(params),
+    return BlocProvider<BalanceBloc>(
+      create: (context) => BalanceBloc()..add(InitInitialBalanceEvent()),
+      child: HomeScaffold(
+        body: const _HomeBody(),
+        bottomNavigationBar: _BottomNavigationBarWidget(params),
+      ),
     );
   }
 }

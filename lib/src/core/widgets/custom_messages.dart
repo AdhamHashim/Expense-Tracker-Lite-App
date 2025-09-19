@@ -18,7 +18,7 @@ class MessageUtils {
           fontSize: FontSize.s14,
         ),
       ),
-      backgroundColor: backgroundColor ?? AppColors.main,
+      backgroundColor: backgroundColor ?? AppColors.black,
       behavior: SnackBarBehavior.floating,
     );
     ScaffoldMessenger.of(context ?? Go.navigatorKey.currentContext!)

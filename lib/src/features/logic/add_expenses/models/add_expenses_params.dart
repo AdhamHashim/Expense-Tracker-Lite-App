@@ -31,6 +31,10 @@ class AddExpensesParams {
 
   bool validateForm() => formKey.currentState!.validate();
 
+  void updateCategory(CategoryEntity? value) {
+    categoryNotifier.value = value;
+  }
+
   void dispose() {
     amountController.dispose();
     dateController.dispose();
@@ -71,15 +75,18 @@ class AddExpensesParams {
 
 extension ConverExpnsesParamsToModel on AddExpensesParams {
   ExpensesEntity toModel() {
-    final amount = double.parse(amountController.text);
-    final amountAfterConvertToDollar = amount / currency!.currency;
+    final double amount = double.parse(amountController.text);
+    final double amountAfterConvertToDollar =
+        (amount / currency!.currency).round().toDouble();
+
     return ExpensesEntity(
-      currencyValueToDollar: currency!.currency,
       id: HiveBoxesConstant.generateRandomId(),
-      date: timeago.format(date),
+      currency: currency!.currencyTitle,
+      currencyValueToDollar: currency!.currency,
+      date: dateController.text,
+      dateAgo: timeago.format(date),
       amount: amount,
       amountAfterConvertToDollar: amountAfterConvertToDollar,
-      currency: currency!.currencyTitle,
       category: categoryNotifier.value!,
     );
   }

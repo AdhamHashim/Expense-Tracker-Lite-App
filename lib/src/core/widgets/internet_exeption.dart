@@ -12,20 +12,22 @@ class InternetExpetion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: AppMargin.mH10,
-        children: [
-          AppAssets.lottie.network.noInternet.lottie(
-            width: context.width * .7,
-            height: context.height * .3,
-          ),
-          Text(
-            LocaleKeys.errorExeptionNointernetDesc,
-            style: const TextStyle().setPrimaryColor.s13.medium,
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: AppMargin.mH10,
+          children: [
+            AppAssets.lottie.network.noInternet.lottie(
+              width: context.width * .7,
+              height: context.height * .3,
+            ),
+            Text(
+              LocaleKeys.errorExeptionNointernetDesc,
+              style: const TextStyle().setPrimaryColor.s13.medium,
+            ),
+          ],
+        ),
       ),
     );
   }

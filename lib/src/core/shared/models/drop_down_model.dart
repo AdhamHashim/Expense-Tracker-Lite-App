@@ -12,7 +12,7 @@ class DropDownModel {
   factory DropDownModel.initial() {
     return DropDownModel(
       id: ConstantManager.zero,
-      name: ConstantManager.appName,
+      name: ConstantManager.emptyText,
     );
   }
 

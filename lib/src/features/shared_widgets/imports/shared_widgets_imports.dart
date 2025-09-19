@@ -5,6 +5,7 @@ import '../../../config/res/config_imports.dart';
 import '../../../core/extensions/text_style_extensions.dart';
 import '../../../core/navigation/navigator.dart';
 import '../../../core/widgets/text_fields/default_text_field.dart';
+import '../../logic/home/presentation/imports/presentation_imports.dart';
 
 part '../scaffolds/default_scaffold.dart';
 part '../fileds/custom_text_field.dart';

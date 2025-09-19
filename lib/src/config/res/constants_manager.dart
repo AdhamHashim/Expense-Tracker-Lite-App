@@ -18,7 +18,7 @@ class ConstantManager {
   static const int pinCodeFieldsCount = 4;
   static const int maxLines = 4;
   static const double snackbarElevation = 4;
-  static const int snackbarDuration = 4;
+  static const int snackbarDuration = 2;
   static const int connectTimeoutDuration = 180;
   static const int recieveTimeoutDuration = 180;
   static const double customImageSliderAsepctRatio = 3;
@@ -57,12 +57,48 @@ class HiveBoxesConstant {
     return random.nextInt(1000000); // توليد رقم من 0 إلى 999999
   }
 
-  static Future<BalanceEntity?> getBalance() async {
-    final data = getBalanceBox.get(balanceObject);
+  static Future<BalanceEntity?> getBalance({
+    int page = ConstantManager.zero,
+    int pageSize = ConstantManager.zero,
+    bool fetchAllData = false,
+    int filter = 0,
+  }) async {
+    final BalanceEntity? data = getBalanceBox.get(balanceObject);
     if (data != null) {
-      return BalanceEntity.fromJson(
-        Map<String, dynamic>.from(data),
-      );
+      if (fetchAllData) {
+        return data;
+      } else {
+        BalanceEntity filtered;
+        switch (filter) {
+          case 3:
+            filtered = BalanceEntity(
+              totalBalance: data.totalBalance,
+              incomeBalnce: data.incomeBalnce,
+              expensesBalance: data.expensesBalance,
+              expenses: data.thisMonth(),
+            );
+            break;
+          case 2:
+            filtered = BalanceEntity(
+              totalBalance: data.totalBalance,
+              incomeBalnce: data.incomeBalnce,
+              expensesBalance: data.expensesBalance,
+              expenses: data.last7Days(),
+            );
+            break;
+          case 1:
+            filtered = filtered = BalanceEntity(
+              totalBalance: data.totalBalance,
+              incomeBalnce: data.incomeBalnce,
+              expensesBalance: data.expensesBalance,
+              expenses: data.lastDay(),
+            );
+            break;
+          default:
+            filtered = data;
+        }
+        return data.paginate(filtered, page, pageSize);
+      }
     }
     return null;
   }
@@ -75,12 +111,16 @@ class HiveBoxesConstant {
     return [];
   }
 
-  Future<void> putBalance(AddExpensesParams params) async {
-    final balanceEntity = await getBalance();
+  static Future<void> putBalance(
+    AddExpensesParams params,
+  ) async {
+    final balanceEntity = await getBalance(fetchAllData: true);
+
     if (balanceEntity != null) {
       final newExpnse = params.toModel();
+
       final updatedExpenses = List<ExpensesEntity>.from(balanceEntity.expenses)
-        ..add(newExpnse);
+        ..insert(0, newExpnse);
 
       final incomeBalance =
           balanceEntity.totalBalance - newExpnse.amountAfterConvertToDollar;
@@ -105,5 +145,56 @@ class HiveBoxesConstant {
       items.add(category);
     }
     await getCategoryBox.put(categoryList, items);
+  }
+}
+
+extension BalanceEntityExtensions on BalanceEntity {
+  /// Filter expenses by a date range
+  List<ExpensesEntity> filterByDateRange(DateTime start, DateTime end) {
+    final format = DateFormat('M/d/y');
+    return expenses.where((e) {
+      final expDate = format.parse(e.date);
+      return expDate.isAfter(start.subtract(const Duration(days: 1))) &&
+          expDate.isBefore(end.add(const Duration(days: 1)));
+    }).toList();
+  }
+
+  /// Pagination (page starts at 0)
+  BalanceEntity? paginate(
+    BalanceEntity? source,
+    int page,
+    int pageSize,
+  ) {
+    final startIndex = page * pageSize;
+    if (startIndex >= source!.expenses.length) return source;
+    final endIndex = (startIndex + pageSize).clamp(0, source.expenses.length);
+    return BalanceEntity(
+      totalBalance: totalBalance,
+      incomeBalnce: incomeBalnce,
+      expensesBalance: expensesBalance,
+      expenses: source.expenses.sublist(startIndex, endIndex),
+    );
+  }
+
+  /// Filter by last 1 day
+  List<ExpensesEntity> lastDay() {
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(const Duration(days: 1));
+    return filterByDateRange(sevenDaysAgo, now);
+  }
+
+  /// Filter by last 7 days
+  List<ExpensesEntity> last7Days() {
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(const Duration(days: 7));
+    return filterByDateRange(sevenDaysAgo, now);
+  }
+
+  /// Filter by this month
+  List<ExpensesEntity> thisMonth() {
+    final now = DateTime.now();
+    final startOfMonth = DateTime(now.year, now.month, 1);
+    final endOfMonth = DateTime(now.year, now.month + 1, 0);
+    return filterByDateRange(startOfMonth, endOfMonth);
   }
 }

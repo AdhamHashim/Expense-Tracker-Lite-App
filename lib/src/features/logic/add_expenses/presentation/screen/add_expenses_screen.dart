@@ -13,6 +13,9 @@ class AddExpensesScreen extends StatelessWidget {
         BlocProvider<CurrencyBloc>(
           create: (_) => CurrencyBloc(),
         ),
+        BlocProvider<ExpensesBloc>(
+          create: (_) => ExpensesBloc(),
+        ),
       ],
       child: const _AddExpensesView(),
     );

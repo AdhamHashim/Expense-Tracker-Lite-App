@@ -6,7 +6,10 @@ class AddiconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Go.to(const AddExpensesScreen()),
+      onTap: () => Go.to(BlocProvider.value(
+        value: context.read<BalanceBloc>(),
+        child: const AddExpensesScreen(),
+      )),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: AppMargin.mH4),
         padding: EdgeInsets.all(AppPadding.pH4),

@@ -5,6 +5,9 @@ class MainTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _MainTabBody();
+    return BlocProvider(
+            create: (context) => BalanceBloc()..add(FetchBalanceEvent()),
+    child: const _MainTabBody(),
+    );
   }
 }

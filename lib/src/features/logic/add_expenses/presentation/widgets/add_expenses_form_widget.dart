@@ -17,9 +17,7 @@ class _AddExpensesFormWidget extends StatelessWidget {
           _CurrencyDropDown(params),
           CustomTextFiled(
             controller: params.amountController,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             hint: "${LocaleKeys.enter} ${LocaleKeys.amount}",
             title: LocaleKeys.amount,
             textInputType: TextInputType.number,
@@ -65,59 +63,84 @@ class _AddExpensesFormWidget extends StatelessWidget {
   }
 }
 
-class _CurrencyDropDown extends StatelessWidget {
+class _CurrencyDropDown extends StatefulWidget {
   final AddExpensesParams params;
   const _CurrencyDropDown(this.params);
 
   @override
+  State<_CurrencyDropDown> createState() => _CurrencyDropDownState();
+}
+
+class _CurrencyDropDownState extends State<_CurrencyDropDown> {
+  @override
+  void initState() {
+    final bloc = context.read<CurrencyBloc>();
+    bloc.add(FetchCurrencyEvent());
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final bloc = context.read<CurrencyBloc>()..add(FetchCurrencyEvent());
-    return DefaultDropDownField<CurrencyEntity>(
-      label: LocaleKeys.currency,
-      hint: "${LocaleKeys.select} ${LocaleKeys.currency}",
-      borderRadius: BorderRadius.circular(AppCircular.r15),
-      fillColor: AppColors.fill,
-      validator: (value) => Validators.validateDropDown(
-        value,
-        fieldTitle: LocaleKeys.currency,
-      ),
-      selectedItem: params.currency,
-      onChanged: (value) => params.currency = value,
-      asyncItems: (searchValue) async {
-        final currencies = bloc.state.currencies;
-        return currencies;
+    return BlocSelector<CurrencyBloc, CurrencyState, List<CurrencyEntity>>(
+      selector: (state) => state.currencies,
+      builder: (context, state) {
+        return DefaultDropDownField<CurrencyEntity>(
+          label: LocaleKeys.currency,
+          hint: "${LocaleKeys.select} ${LocaleKeys.currency}",
+          borderRadius: BorderRadius.circular(AppCircular.r15),
+          itemAsString: (value) => value!.currencyTitle,
+          fillColor: AppColors.fill,
+          selectedItem: widget.params.currency,
+          onChanged: (value) => widget.params.currency = value,
+          asyncItems: (searchValue) async => state,
+          validator: (value) => Validators.validateDropDown(
+            value,
+            fieldTitle: LocaleKeys.currency,
+          ),
+        );
       },
-      itemAsString: (value) => value!.currencyTitle,
     );
   }
 }
 
-class _CategoryDropDown extends StatelessWidget {
+class _CategoryDropDown extends StatefulWidget {
   final AddExpensesParams params;
   const _CategoryDropDown(this.params);
 
   @override
+  State<_CategoryDropDown> createState() => _CategoryDropDownState();
+}
+
+class _CategoryDropDownState extends State<_CategoryDropDown> {
+  @override
+  void initState() {
+    final bloc = context.read<CategoryBloc>();
+    bloc.add(FetchCategoryEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final bloc = context.read<CategoryBloc>()..add(FetchCategoryEvent());
-        return BlocSelector<CategoryBloc, CategoryState, List<CategoryEntity>>(
-          bloc: bloc,
-          selector: (state) => state.categories,
-          builder: (context, state) {
+    return BlocSelector<CategoryBloc, CategoryState, List<CategoryEntity>>(
+      selector: (state) => state.categories,
+      builder: (context, state) {
+        return ValueListenableBuilder(
+          valueListenable: widget.params.categoryNotifier,
+          builder: (context, value, child) {
             return DefaultDropDownField<CategoryEntity>(
               label: LocaleKeys.categories,
               hint: "${LocaleKeys.select} ${LocaleKeys.categories}",
               borderRadius: BorderRadius.circular(AppCircular.r15),
               fillColor: AppColors.fill,
+              selectedItem: value,
+              onChanged: (value) => widget.params.updateCategory(value),
+              asyncItems: (searchValue) async => state,
+              itemAsString: (value) => value!.title,
               validator: (value) => Validators.validateDropDown(
                 value,
                 fieldTitle: LocaleKeys.categories,
               ),
-              selectedItem: params.categoryNotifier.value,
-              onChanged: (value) => params.categoryNotifier.value = value,
-              asyncItems: (searchValue) async => state,
-              itemAsString: (value) => value!.title,
             );
           },
         );

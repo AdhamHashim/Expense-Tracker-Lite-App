@@ -12,15 +12,25 @@ class _ExpensesElementsWidget extends StatelessWidget {
         spacing: AppMargin.mH2,
         children: [
           const _ViewAllExpensesWidget(),
-          Flexible(
-            child: ListView.builder(
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: AppPadding.pH12),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return const ExpensesCardWidget();
-              },
-            ),
+          BlocSelector<BalanceBloc, BalanceState, BalanceEntity>(
+            selector: (state) => state.balanceEntity,
+            builder: (context, state) {
+              return Flexible(
+                child: Visibility(
+                  visible: state.expenses.isNotEmpty,
+                  replacement: const NotContainData(),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: AppPadding.pH12),
+                    itemCount:
+                        state.expenses.length > 3 ? 3 : state.expenses.length,
+                    itemBuilder: (context, index) {
+                      return ExpensesCardWidget(state.expenses[index]);
+                    },
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

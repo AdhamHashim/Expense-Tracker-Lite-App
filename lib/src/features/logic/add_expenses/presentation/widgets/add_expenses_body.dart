@@ -18,6 +18,7 @@ class _AddExpensesBodyState extends State<_AddExpensesBody> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<ExpensesBloc>();
     return Column(
       children: [
         Expanded(
@@ -34,9 +35,9 @@ class _AddExpensesBodyState extends State<_AddExpensesBody> {
           btnKey: params.btnKey,
           margin: EdgeInsets.symmetric(
             vertical: AppMargin.mH6,
-            horizontal: AppMargin.mW12,
+            horizontal: AppMargin.mW20,
           ),
-          onTap: () async => await params.addExpense(),
+          onTap: () async => bloc.add(AddExpensesEvent(params)),
         ),
       ],
     );

@@ -36,3 +36,8 @@ part '../blocs/category_bloc/category_state.dart';
 part '../blocs/currency_bloc/currency_bloc.dart';
 part '../blocs/currency_bloc/currency_event.dart';
 part '../blocs/currency_bloc/currency_state.dart';
+
+
+part '../blocs/expenses_bloc/expenses_bloc.dart';
+part '../blocs/expenses_bloc/expenses_event.dart';
+part '../blocs/expenses_bloc/expenses_state.dart';

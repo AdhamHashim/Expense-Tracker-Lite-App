@@ -53,5 +53,10 @@
   "image_upload_succefully": "The image has been uploaded successfully",
   "addexpenses_succefully": "The Expense has been added successfully",
   "title": "Title",
-  "add_category": "Add Category"
+  "add_category": "Add Category",
+  "add_category_succefully": "The Category has been added successfully",
+  "all_expenses": "All Expenses",
+  "this_month": " This Month",
+  "last_seven_day": "Last 7 Days",
+  "last_day": "Last Day"
 }

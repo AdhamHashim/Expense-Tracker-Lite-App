@@ -7,11 +7,13 @@ class CategoryEntity extends Equatable {
   final int id;
   final String icon;
   final String title;
+  final bool selected;
 
   const CategoryEntity({
     required this.id,
     required this.icon,
     required this.title,
+    this.selected = false,
   });
 
   factory CategoryEntity.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,15 @@ class CategoryEntity extends Equatable {
       id: json['id'],
       icon: json['icon'],
       title: json['title'],
+    );
+  }
+
+  CategoryEntity copyWith({required bool select}) {
+    return CategoryEntity(
+      id: id,
+      icon: icon,
+      title: title,
+      selected: select,
     );
   }
 

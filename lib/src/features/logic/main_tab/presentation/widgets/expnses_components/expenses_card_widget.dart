@@ -1,14 +1,15 @@
 part of '../../imports/view_imports.dart';
 
 class ExpensesCardWidget extends StatelessWidget {
-  const ExpensesCardWidget({super.key});
+  final ExpensesEntity expense;
+  const ExpensesCardWidget(this.expense, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: context.width,
       margin: EdgeInsets.symmetric(vertical: AppMargin.mH4),
-      padding: EdgeInsets.all(AppPadding.pH12),
+      padding: EdgeInsets.all(AppPadding.pH8),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppCircular.r10),
@@ -44,9 +45,9 @@ class ExpensesCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: AppMargin.mW8,
               children: [
-                AppAssets.icons.cart.image(
-                  width: AppSize.sH45,
-                  height: AppSize.sH45,
+                CategoryElementWidget(
+                  categoryEntity: expense.category,
+                  shoWTitle: false,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -54,7 +55,7 @@ class ExpensesCardWidget extends StatelessWidget {
                   spacing: AppMargin.mH2,
                   children: [
                     Text(
-                      LocaleKeys.categories,
+                      expense.category.title,
                       style: const TextStyle().setBlackColor.s16.semiBold,
                     ),
                     Text(
@@ -83,14 +84,20 @@ class ExpensesCardWidget extends StatelessWidget {
                       width: AppSize.sW12,
                       height: AppSize.sH12,
                     ),
-                    Text(
-                      "100",
-                      style: const TextStyle().setBlackColor.s16.semiBold,
+                    Flexible(
+                      child: Text(
+                        "${expense.amountAfterConvertToDollar}",
+                        style: const TextStyle()
+                            .setBlackColor
+                            .s16
+                            .semiBold
+                            .ellipsis,
+                      ),
                     ),
                   ],
                 ),
                 Text(
-                  LocaleKeys.manally,
+                  expense.dateAgo,
                   style: const TextStyle().setBlackColor.s12.medium,
                 ),
               ],

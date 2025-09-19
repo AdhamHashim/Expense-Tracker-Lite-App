@@ -12,9 +12,12 @@ Future<DateTime?> showCustomDatePicker({
     locale: Languages.currentLanguage.locale,
     context: Go.context,
     initialDate: DateTime.now(),
-    firstDate: DateTime(2022),
+    firstDate: DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+    ),
     initialEntryMode: DatePickerEntryMode.calendarOnly,
-    lastDate: DateTime.now().add(const Duration(days: 365 * 4)),
+    lastDate: DateTime.now(),
     builder: (context, child) {
       return Theme(
         data: Theme.of(context).copyWith(
@@ -34,7 +37,7 @@ Future<DateTime?> showCustomDatePicker({
     },
   );
   if (pickedDate != null) {
-    final String formattedDate = DateFormat(dateFormat ?? 'EEE, M/d/y',
+    final String formattedDate = DateFormat(dateFormat ?? 'M/d/y',
             Languages.currentLanguage.locale.languageCode)
         .format(pickedDate);
     controller.text = formattedDate;

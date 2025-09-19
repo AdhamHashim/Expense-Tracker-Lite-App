@@ -10,12 +10,14 @@ class ExpensesEntity {
   final double currencyValueToDollar;
   final String currency;
   final String date;
+  final String dateAgo;
   final CategoryEntity category;
 
   const ExpensesEntity({
     required this.id,
     required this.amount,
     required this.date,
+    required this.dateAgo,
     required this.amountAfterConvertToDollar,
     required this.currencyValueToDollar,
     required this.currency,
@@ -26,6 +28,7 @@ class ExpensesEntity {
     return ExpensesEntity(
       id: json['id'],
       date: json['date'],
+      dateAgo: json['dateAgo'],
       currencyValueToDollar: json['currencyValueToDollar'],
       amount: json['amount'],
       amountAfterConvertToDollar: json['amountAfterConvertToDollar'],
@@ -38,6 +41,7 @@ class ExpensesEntity {
         "id": id,
         "amount": amount,
         "date": date,
+        "dateAgo": dateAgo,
         "currencyValueToDollar": currencyValueToDollar,
         "amountAfterConvertToDollar": amountAfterConvertToDollar,
         "currency": currency,
@@ -51,20 +55,21 @@ class ExpensesEntityAdapter extends TypeAdapter<ExpensesEntity> {
     final id = reader.readInt();
     final amount = reader.readDouble();
     final date = reader.readString();
-    final currencyValueToDollar = reader.readDouble();
-    final amountAfterConvertToDollar = reader.readDouble();
+    final dateAgo = reader.readString();
     final currency = reader.readString();
     final category = reader.read() as CategoryEntity;
-    // Read the list
+    final currencyValueToDollar = reader.readDouble();
+    final amountAfterConvertToDollar = reader.readDouble();
 
     return ExpensesEntity(
       id: id,
       amount: amount,
       date: date,
-      amountAfterConvertToDollar: amountAfterConvertToDollar,
-      currencyValueToDollar: currencyValueToDollar,
       currency: currency,
+      dateAgo: dateAgo,
       category: category,
+      currencyValueToDollar: currencyValueToDollar,
+      amountAfterConvertToDollar: amountAfterConvertToDollar,
     );
   }
 
@@ -76,6 +81,7 @@ class ExpensesEntityAdapter extends TypeAdapter<ExpensesEntity> {
     writer.writeInt(object.id);
     writer.writeDouble(object.amount);
     writer.writeString(object.date);
+    writer.writeString(object.dateAgo);
     writer.writeString(object.currency);
     writer.write(object.category);
     writer.writeDouble(object.currencyValueToDollar);

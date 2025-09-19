@@ -31,14 +31,14 @@ class DefaultScaffold extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: onTap ?? () => Go.back(),
+                      onTap: onTap ?? () => Go.offAll(const HomeScreen()),
                       child: AppAssets.icons.back.image(
                         height: AppSize.sH16,
                         width: AppSize.sH20,
                       ),
                     ),
                     Text(
-                      title!,
+                      title ?? ConstantManager.emptyText,
                       style: const TextStyle().setBlackColor.s18.bold,
                     ),
                     SizedBox(width: AppSize.sH20),

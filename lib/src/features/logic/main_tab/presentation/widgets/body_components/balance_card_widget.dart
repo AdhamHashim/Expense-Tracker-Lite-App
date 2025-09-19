@@ -14,22 +14,27 @@ class _BalanceCarWidget extends StatelessWidget {
           bgColor: AppColors.mediumBlue,
           borderRadius: BorderRadius.circular(AppCircular.r15),
         ),
-        SizedBox(
-          height: context.height * .2,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.pW30),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _TotalBalanceWidget("10,0000"),
-                _IncomeWithExpensesWidget(
-                  income: "2,000",
-                  expenses: "8,000",
+        BlocSelector<BalanceBloc, BalanceState, BalanceEntity>(
+          selector: (state) => state.balanceEntity,
+          builder: (context, state) {
+            return SizedBox(
+              height: context.height * .2,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppPadding.pW30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _TotalBalanceWidget("${state.totalBalance}"),
+                    _IncomeWithExpensesWidget(
+                      income: "${state.incomeBalnce}",
+                      expenses: "${state.expensesBalance}",
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
       ],
     );

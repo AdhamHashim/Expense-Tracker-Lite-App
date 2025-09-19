@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../config/res/config_imports.dart';
 import '../../extensions/context_extension.dart';
 
-
 class DefaultButton extends StatelessWidget {
   final String? title;
   final Function()? onTap;
@@ -65,8 +64,7 @@ class DefaultButton extends StatelessWidget {
           foregroundColor: color ?? AppColors.buttonColor,
           backgroundColor: color ?? AppColors.buttonColor,
           shape: RoundedRectangleBorder(
-            borderRadius:
-                borderRadius ?? BorderRadius.circular(AppCircular.r5),
+            borderRadius: borderRadius ?? BorderRadius.circular(AppCircular.r8),
             side: borderColor != null
                 ? BorderSide(
                     color: borderColor ?? AppColors.buttonColor,

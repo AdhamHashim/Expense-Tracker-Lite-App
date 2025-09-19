@@ -1,7 +1,7 @@
 part of '../imports/view_imports.dart';
 
-class ViewAllExpensesScren extends StatelessWidget {
-  const ViewAllExpensesScren({super.key});
+class ViewAllExpensesScreen extends StatelessWidget {
+  const ViewAllExpensesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

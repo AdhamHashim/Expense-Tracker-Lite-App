@@ -37,12 +37,17 @@ void main() async {
     ],
   );
 
-  Hive.registerAdapter(CategoryEntityAdapter());
-  Hive.registerAdapter(BalanceEntityAdapter());
-  Hive.registerAdapter(ExpensesEntityAdapter());
+  Helpers.changeStatusbarColor(
+    statusBarColor: AppColors.main,
+  );
 
-  await Hive.openBox(HiveBoxesConstant.balanceBox);
+  Hive.registerAdapter(CategoryEntityAdapter());
+  Hive.registerAdapter(ExpensesEntityAdapter());
+  Hive.registerAdapter(BalanceEntityAdapter());
+
   await Hive.openBox(HiveBoxesConstant.categoryBox);
+  await Hive.openBox(HiveBoxesConstant.balanceBox);
+
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,

@@ -21,12 +21,7 @@ class _CategoriesSectionWidgetState extends State<_CategoriesSectionWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
-        return SizedBox(
-          height: state.categories.isNotEmpty
-              ? state.categories.length > 10
-                  ? state.categories.length * AppSize.sH35
-                  : state.categories.length * AppSize.sH50
-              : AppSize.sH50,
+        return IntrinsicHeight(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +43,7 @@ class _CategoriesSectionWidgetState extends State<_CategoriesSectionWidget> {
                       spacing: AppMargin.mH14,
                       children: [
                         ...state.categories.map(
-                          (e) => _CategoryElementWidget(
+                          (e) => CategoryElementWidget(
                             categoryEntity: e,
                             selected: value != null ? value.id == e.id : false,
                             onTap: () =>
@@ -69,14 +64,17 @@ class _CategoriesSectionWidgetState extends State<_CategoriesSectionWidget> {
   }
 }
 
-class _CategoryElementWidget extends StatelessWidget {
+class CategoryElementWidget extends StatelessWidget {
   final CategoryEntity categoryEntity;
   final bool selected;
+  final bool shoWTitle;
   final void Function()? onTap;
-  const _CategoryElementWidget({
+  const CategoryElementWidget({
+    super.key,
     required this.categoryEntity,
-    required this.selected,
-    required this.onTap,
+    this.selected = false,
+    this.shoWTitle = true,
+    this.onTap,
   });
 
   @override
@@ -109,12 +107,15 @@ class _CategoryElementWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: AppSize.sH55,
-            child: Text(
-              categoryEntity.title,
-              textAlign: TextAlign.center,
-              style: const TextStyle().setBlackColor.s12.medium.ellipsis,
+          Offstage(
+            offstage: !shoWTitle,
+            child: SizedBox(
+              width: AppSize.sH55,
+              child: Text(
+                categoryEntity.title,
+                textAlign: TextAlign.center,
+                style: const TextStyle().setBlackColor.s12.medium.ellipsis,
+              ),
             ),
           ),
         ],

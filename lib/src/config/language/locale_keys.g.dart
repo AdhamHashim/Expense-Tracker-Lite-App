@@ -166,4 +166,19 @@ abstract class LocaleKeys {
   static const String _addCategory = 'add_category';
   static String get addCategory => _addCategory.tr();
 
+  static const String _addCategorySuccefully = 'add_category_succefully';
+  static String get addCategorySuccefully => _addCategorySuccefully.tr();
+
+  static const String _allExpenses = 'all_expenses';
+  static String get allExpenses => _allExpenses.tr();
+
+  static const String _thisMonth = 'this_month';
+  static String get thisMonth => _thisMonth.tr();
+
+  static const String _lastSevenDay = 'last_seven_day';
+  static String get lastSevenDay => _lastSevenDay.tr();
+
+  static const String _lastDay = 'last_day';
+  static String get lastDay => _lastDay.tr();
+
 }

@@ -14,7 +14,12 @@ class _ViewAllExpensesWidget extends StatelessWidget {
           style: const TextStyle().setBlackColor.s18.semiBold,
         ),
         GestureDetector(
-          onTap: () => Go.to(const ViewAllExpensesScren()),
+          onTap: () => Go.to(
+            BlocProvider.value(
+              value: context.read<BalanceBloc>(),
+              child: const ViewAllExpensesScreen(),
+            ),
+          ),
           child: Text(
             LocaleKeys.seeAll,
             style: const TextStyle().setBlackColor.s14.medium,

@@ -20,12 +20,14 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   ) async {
     if (!event.params.validateForm()) return;
     event.params.btnKey.currentState!.animateForward();
-    await HiveBoxesConstant.putCategories(event.params.toModel());
-    event.expensesParams.categoryNotifier.value = event.params.toModel();
+    final categoryEntitiy = event.params.toModel();
+    await HiveBoxesConstant.putCategories(categoryEntitiy);
     final updatedCategories = await HiveBoxesConstant.getCategories();
     emit(state.copyWith(categories: List.from(updatedCategories)));
     event.params.btnKey.currentState!.animateReverse();
-    MessageUtils.showSnackBar(LocaleKeys.addexpensesSuccefully);
+    event.expensesParams.categoryNotifier.value = categoryEntitiy;
+
+    MessageUtils.showSnackBar(LocaleKeys.addCategorySuccefully);
     Go.back();
   }
 }
