@@ -1,14 +1,8 @@
 part of '../../imports/view_imports.dart';
 
-class _ExpensesElementsWidget extends StatefulWidget {
+class _ExpensesElementsWidget extends StatelessWidget {
   const _ExpensesElementsWidget();
 
-  @override
-  State<_ExpensesElementsWidget> createState() =>
-      _ExpensesElementsWidgetState();
-}
-
-class _ExpensesElementsWidgetState extends State<_ExpensesElementsWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(

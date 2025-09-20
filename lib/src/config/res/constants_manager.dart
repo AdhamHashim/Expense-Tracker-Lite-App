@@ -97,7 +97,7 @@ class HiveBoxesConstant {
           default:
             filtered = data;
         }
-        
+
         return data.paginate(filtered, page, pageSize);
       }
     }
@@ -112,9 +112,7 @@ class HiveBoxesConstant {
     return [];
   }
 
-  static Future<void> putBalance(
-    AddExpensesParams params,
-  ) async {
+  static Future<void> putBalance(AddExpensesParams params) async {
     final balanceEntity = await getBalance(fetchAllData: true);
 
     if (balanceEntity != null) {
@@ -166,14 +164,14 @@ extension BalanceEntityExtensions on BalanceEntity {
     int pageSize,
   ) {
     if (source == null) return null;
-    
+
     // If pageSize is 0, return all data
     if (pageSize == 0) {
       return source;
     }
-    
+
     final startIndex = page * pageSize;
-    
+
     if (startIndex >= source.expenses.length) {
       return BalanceEntity(
         totalBalance: source.totalBalance,
@@ -182,10 +180,10 @@ extension BalanceEntityExtensions on BalanceEntity {
         expenses: [],
       );
     }
-    
+
     final endIndex = (startIndex + pageSize).clamp(0, source.expenses.length);
     final paginatedExpenses = source.expenses.sublist(startIndex, endIndex);
-    
+
     return BalanceEntity(
       totalBalance: source.totalBalance,
       incomeBalance: source.incomeBalance,

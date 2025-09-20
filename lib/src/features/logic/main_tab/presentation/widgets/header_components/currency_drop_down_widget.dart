@@ -1,14 +1,8 @@
 part of '../../imports/view_imports.dart';
 
-class _CurrencyDropDownWidget extends StatefulWidget {
+class _CurrencyDropDownWidget extends StatelessWidget {
   const _CurrencyDropDownWidget();
 
-  @override
-  State<_CurrencyDropDownWidget> createState() =>
-      _CurrencyDropDownWidgetState();
-}
-
-class _CurrencyDropDownWidgetState extends State<_CurrencyDropDownWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(

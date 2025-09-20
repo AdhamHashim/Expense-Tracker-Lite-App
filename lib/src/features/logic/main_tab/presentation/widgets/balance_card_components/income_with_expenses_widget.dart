@@ -1,6 +1,6 @@
 part of '../../imports/view_imports.dart';
 
-class _IncomeWithExpensesWidget extends StatefulWidget {
+class _IncomeWithExpensesWidget extends StatelessWidget {
   final String income, expenses;
   const _IncomeWithExpensesWidget({
     required this.income,
@@ -8,34 +8,23 @@ class _IncomeWithExpensesWidget extends StatefulWidget {
   });
 
   @override
-  State<_IncomeWithExpensesWidget> createState() =>
-      _IncomeWithExpensesWidgetState();
-}
-
-class _IncomeWithExpensesWidgetState extends State<_IncomeWithExpensesWidget> {
-  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: AppMargin.mH10,
       children: [
-        _IncomeBalanceWidget(widget.income),
-        _ExpensesBalanceWidget(widget.expenses),
+        _IncomeBalanceWidget(income),
+        _ExpensesBalanceWidget(expenses),
       ],
     );
   }
 }
 
-class _IncomeBalanceWidget extends StatefulWidget {
+class _IncomeBalanceWidget extends StatelessWidget {
   final String incomeBalance;
   const _IncomeBalanceWidget(this.incomeBalance);
 
-  @override
-  State<_IncomeBalanceWidget> createState() => _IncomeBalanceWidgetState();
-}
-
-class _IncomeBalanceWidgetState extends State<_IncomeBalanceWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -81,7 +70,7 @@ class _IncomeBalanceWidgetState extends State<_IncomeBalanceWidget> {
               ),
               Flexible(
                 child: Text(
-                  widget.incomeBalance,
+                  incomeBalance,
                   style: const TextStyle().setWhiteColor.s22.bold.ellipsis,
                 ),
               ),

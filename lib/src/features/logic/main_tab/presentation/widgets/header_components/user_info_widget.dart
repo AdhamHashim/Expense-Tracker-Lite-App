@@ -1,13 +1,8 @@
 part of '../../imports/view_imports.dart';
 
-class _UserInfoWidget extends StatefulWidget {
+class _UserInfoWidget extends StatelessWidget {
   const _UserInfoWidget();
 
-  @override
-  State<_UserInfoWidget> createState() => _UserInfoWidgetState();
-}
-
-class _UserInfoWidgetState extends State<_UserInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(

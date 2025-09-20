@@ -1,13 +1,8 @@
 part of '../../imports/view_imports.dart';
 
-class _BalanceCarWidget extends StatefulWidget {
+class _BalanceCarWidget extends StatelessWidget {
   const _BalanceCarWidget();
 
-  @override
-  State<_BalanceCarWidget> createState() => _BalanceCarWidgetState();
-}
-
-class _BalanceCarWidgetState extends State<_BalanceCarWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(

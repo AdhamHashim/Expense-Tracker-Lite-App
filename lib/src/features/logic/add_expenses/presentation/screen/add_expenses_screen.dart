@@ -27,17 +27,9 @@ class _AddExpensesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ExpensesBloc, ExpensesState>(
-      listener: (context, state) {
-        if (state.isSuccess) {
-          // Navigate back and refresh data
-          Go.back(true);
-        }
-      },
-      child: DefaultScaffold(
-        title: LocaleKeys.addExpense,
-        body: const _AddExpensesBody(),
-      ),
+    return DefaultScaffold(
+      title: LocaleKeys.addExpense,
+      body: const _AddExpensesBody(),
     );
   }
 }

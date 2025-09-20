@@ -1,6 +1,6 @@
 part of '../../imports/view_imports.dart';
 
-class _CardWithCircleBGWidget extends StatefulWidget {
+class _CardWithCircleBGWidget extends StatelessWidget {
   final double? width, height;
   final Color? bgColor;
   final BorderRadiusGeometry? borderRadius;
@@ -12,19 +12,13 @@ class _CardWithCircleBGWidget extends StatefulWidget {
   });
 
   @override
-  State<_CardWithCircleBGWidget> createState() =>
-      _CardWithCircleBGWidgetState();
-}
-
-class _CardWithCircleBGWidgetState extends State<_CardWithCircleBGWidget> {
-  @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width ?? context.width,
-      height: widget.height ?? context.height * .36,
+      width: width ?? context.width,
+      height: height ?? context.height * .36,
       decoration: BoxDecoration(
-        color: widget.bgColor ?? AppColors.main,
-        borderRadius: widget.borderRadius ??
+        color: bgColor ?? AppColors.main,
+        borderRadius: borderRadius ??
             BorderRadius.only(
               bottomLeft: Radius.circular(AppCircular.r10),
               bottomRight: Radius.circular(AppCircular.r10),

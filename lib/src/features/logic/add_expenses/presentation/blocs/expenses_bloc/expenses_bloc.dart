@@ -12,20 +12,11 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
     AddExpensesEvent event,
     Emitter<ExpensesState> emit,
   ) async {
-    try {
-      if (!event.params.validateForm()) return;
-      emit(state.copyWith(baseStatus: BaseStatus.loading));
-      event.params.btnKey.currentState!.animateForward();
-      await HiveBoxesConstant.putBalance(event.params);
-      event.params.btnKey.currentState!.animateReverse();
-      MessageUtils.showSnackBar(LocaleKeys.addexpensesSuccefully);
-      emit(state.copyWith(baseStatus: BaseStatus.success));
-      Go.offAll(const HomeScreen());
-    } catch (e) {
-      event.params.btnKey.currentState!.animateReverse();
-      emit(state.copyWith(baseStatus: BaseStatus.error));
-
-      MessageUtils.showSnackBar(LocaleKeys.exceptionError);
-    }
+    if (!event.params.validateForm()) return;
+    event.params.btnKey.currentState!.animateForward();
+    await HiveBoxesConstant.putBalance(event.params);
+    event.params.btnKey.currentState!.animateReverse();
+    MessageUtils.showSnackBar(LocaleKeys.addexpensesSuccefully);
+    Go.offAll(const HomeScreen());
   }
 }

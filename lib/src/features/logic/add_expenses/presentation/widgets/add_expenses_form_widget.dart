@@ -1,29 +1,22 @@
 part of '../imports/view_imports.dart';
 
-class _AddExpensesFormWidget extends StatefulWidget {
+class _AddExpensesFormWidget extends StatelessWidget {
   final AddExpensesParams params;
   const _AddExpensesFormWidget(this.params);
 
   @override
-  State<_AddExpensesFormWidget> createState() => _AddExpensesFormWidgetState();
-}
-
-class _AddExpensesFormWidgetState extends State<_AddExpensesFormWidget> {
-
-
-  @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.params.formKey,
+      key: params.formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: AppMargin.mH10,
         children: [
-          _CategoryDropDown(widget.params),
-          _CurrencyDropDown(widget.params),
+          _CategoryDropDown(params),
+          _CurrencyDropDown(params),
           CustomTextField(
-            controller: widget.params.amountController,
+            controller: params.amountController,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             hint: "${LocaleKeys.enter} ${LocaleKeys.amount}",
             title: LocaleKeys.amount,
@@ -35,12 +28,12 @@ class _AddExpensesFormWidgetState extends State<_AddExpensesFormWidget> {
             ),
           ),
           CustomTextField(
-            controller: widget.params.dateController,
+            controller: params.dateController,
             hint: "${LocaleKeys.enter} ${LocaleKeys.date}",
             title: LocaleKeys.date,
             textInputType: TextInputType.datetime,
             textInputAction: TextInputAction.none,
-            onTap: () => widget.params.selectDate(),
+            onTap: () => params.selectDate(),
             suffixIcon: AppAssets.icons.calendar
                 .image(width: AppSize.sH12)
                 .paddingAll(AppPadding.pH10),
@@ -50,12 +43,12 @@ class _AddExpensesFormWidgetState extends State<_AddExpensesFormWidget> {
             ),
           ),
           CustomTextField(
-            controller: widget.params.imageController,
+            controller: params.imageController,
             hint: LocaleKeys.uploadImage,
             title: LocaleKeys.uploadImage,
             textInputType: TextInputType.none,
             textInputAction: TextInputAction.none,
-            onTap: () => widget.params.uploadImage(),
+            onTap: () => params.uploadImage(),
             suffixIcon: AppAssets.icons.camera
                 .image(width: AppSize.sH12)
                 .paddingAll(AppPadding.pH10),

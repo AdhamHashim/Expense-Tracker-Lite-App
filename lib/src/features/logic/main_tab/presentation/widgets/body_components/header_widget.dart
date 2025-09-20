@@ -1,13 +1,8 @@
 part of '../../imports/view_imports.dart';
 
-class _HeaderWidget extends StatefulWidget {
+class _HeaderWidget extends StatelessWidget {
   const _HeaderWidget();
 
-  @override
-  State<_HeaderWidget> createState() => _HeaderWidgetState();
-}
-
-class _HeaderWidgetState extends State<_HeaderWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(
