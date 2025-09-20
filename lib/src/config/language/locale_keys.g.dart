@@ -181,4 +181,7 @@ abstract class LocaleKeys {
   static const String _lastDay = 'last_day';
   static String get lastDay => _lastDay.tr();
 
+  static const String _loadingExpenses = 'loading_expenses';
+  static String get loadingExpenses => _loadingExpenses.tr();
+
 }

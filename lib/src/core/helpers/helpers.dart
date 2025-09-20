@@ -60,8 +60,9 @@ class Helpers {
                   leading: const Icon(Icons.photo_library),
                   title: Text(LocaleKeys.photoLibrary),
                   onTap: () async {
-                    final currentImage =
-                        await picker.pickImage(source: ImageSource.gallery);
+                    final currentImage = await picker.pickImage(
+                      source: ImageSource.gallery,
+                    );
                     if (currentImage != null) {
                       image = File(currentImage.path);
                     }

@@ -2,67 +2,79 @@ part of '../imports/view_imports.dart';
 
 class BalanceBloc extends Bloc<BalanceEvent, BalanceState> {
   BalanceBloc() : super(BalanceState.initial()) {
-    on<FetchBalanceEvent>(
-      (event, emit) => getBalance(emit, event),
-    );
-    on<InitInitialBalanceEvent>(
-      (event, emit) => initInitialBalanceEvent(),
-    );
+    on<InitInitialBalanceEvent>(_onInitInitialBalance);
+    on<FetchBalanceEvent>(_onFetchBalance);
   }
 
-  Future<void> initInitialBalanceEvent() async {
+  Future<void> _onInitInitialBalance(
+      InitInitialBalanceEvent event, Emitter<BalanceState> emit) async {
     final balanceEntity = await HiveBoxesConstant.getBalance();
+    final initialValue = balanceEntity ?? BalanceEntity.initial();
+
     if (balanceEntity == null) {
       await HiveBoxesConstant.getBalanceBox.put(
         HiveBoxesConstant.balanceObject,
-        BalanceEntity.initial(),
+        initialValue,
       );
     }
-    emit(state.copyWith(balanceEntity: balanceEntity));
+
+    emit(state.copyWith(
+      balanceEntity: initialValue,
+      baseStatus: BaseStatus.success,
+      page: 0,
+      hasReachedMax: false,
+    ));
   }
 
-  Future<void> getBalance(
-    Emitter<BalanceState> emit,
-    FetchBalanceEvent event,
-  ) async {
-    emit(state.copyWith(baseStatus: BaseStatus.loading));
+  Future<void> _onFetchBalance(
+      FetchBalanceEvent event, Emitter<BalanceState> emit) async {
+    final isFirstPage = event.page == 0;
 
-    final data = await HiveBoxesConstant.getBalance(
-      filter: event.filter != null ? event.filter!.id : 0,
-      page: event.page,
-      pageSize: event.pageSize,
-    );
+    // Loading state
+    if (isFirstPage) {
+      emit(state.copyWith(baseStatus: BaseStatus.loading, hasReachedMax: false));
+    } else {
+      emit(state.copyWith(baseStatus: BaseStatus.loadingMore));
+    }
 
-    if (data != null) {
-      List<ExpensesEntity> allExpenses;
+    try {
+      await Future.delayed(const Duration(seconds: 1)); // simulate loading
 
-      // Check if filter changed
-      if (event.filter?.id == state.filter?.id) {
-        // Same filter → append next page
-        allExpenses = [...state.balanceEntity.expenses, ...data.expenses];
-      } else {
-        // New filter → start fresh
-        allExpenses = [...data.expenses];
+      final data = await HiveBoxesConstant.getBalance(
+        filter: event.filter?.id ?? 0,
+        page: event.page,
+        pageSize: event.pageSize,
+      );
+
+      if (data == null) {
+        emit(state.copyWith(baseStatus: BaseStatus.error));
+        return;
       }
 
-      // Remove duplicates by id
-      final uniqueExpenses =
-          {for (var e in allExpenses) e.id: e}.values.toList();
+      // Merge for pagination, replace for first page
+      final allExpenses = isFirstPage
+          ? [...data.expenses]
+          : [...state.balanceEntity.expenses, ...data.expenses];
+
+      final uniqueExpenses = {for (var e in allExpenses) e.id: e}.values.toList();
 
       final updatedValue = BalanceEntity(
         totalBalance: data.totalBalance,
-        incomeBalnce: data.incomeBalnce,
+        incomeBalance: data.incomeBalance,
         expensesBalance: data.expensesBalance,
         expenses: uniqueExpenses,
       );
 
+      final hasReachedMax = data.expenses.length < event.pageSize;
+
       emit(state.copyWith(
         balanceEntity: updatedValue,
         baseStatus: BaseStatus.success,
-        filter: event.filter, // remember current filter
+        filter: event.filter,
         page: event.page,
+        hasReachedMax: hasReachedMax,
       ));
-    } else {
+    } catch (_) {
       emit(state.copyWith(baseStatus: BaseStatus.error));
     }
   }

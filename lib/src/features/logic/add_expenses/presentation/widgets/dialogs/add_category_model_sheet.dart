@@ -40,7 +40,7 @@ class _AddCategoryModelSheetBodyState extends State<AddCategoryModelSheetBody> {
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: AppMargin.mH10,
         children: [
-          CustomTextFiled(
+          CustomTextField(
             controller: params.titleController,
             hint: "${LocaleKeys.enter} ${LocaleKeys.title}",
             title: LocaleKeys.title,
@@ -51,7 +51,7 @@ class _AddCategoryModelSheetBodyState extends State<AddCategoryModelSheetBody> {
               fieldTitle: LocaleKeys.title,
             ),
           ),
-          CustomTextFiled(
+          CustomTextField(
             controller: params.imageController,
             hint: LocaleKeys.uploadImage,
             title: LocaleKeys.uploadImage,

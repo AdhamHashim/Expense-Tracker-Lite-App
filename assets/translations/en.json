@@ -58,5 +58,6 @@
   "all_expenses": "All Expenses",
   "this_month": "This Month",
   "last_seven_day": "Last 7 Days",
-  "last_day": "Last Day"
+  "last_day": "Last Day",
+  "loading_expenses": "Loading expenses"
 }

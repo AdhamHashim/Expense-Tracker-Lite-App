@@ -16,6 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+
+
   @override
   void dispose() {
     params.dispose();
@@ -25,10 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BalanceBloc>(
-      create: (context) => BalanceBloc()..add(InitInitialBalanceEvent()),
-      child: HomeScaffold(
-        body: const _HomeBody(),
-        bottomNavigationBar: _BottomNavigationBarWidget(params),
+      create: (context) => BalanceBloc()..add(FetchBalanceEvent(
+        page: 0,
+        pageSize: ConstantManager.paginationPageSize,
+      )),
+      child: BlocListener<BalanceBloc, BalanceState>(
+        listener: (context, state) {
+          // This will be triggered when data is refreshed
+        },
+        child: HomeScaffold(
+          body: const _HomeBody(),
+          bottomNavigationBar: _BottomNavigationBarWidget(params),
+        ),
       ),
     );
   }

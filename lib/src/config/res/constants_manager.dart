@@ -59,7 +59,7 @@ class HiveBoxesConstant {
 
   static Future<BalanceEntity?> getBalance({
     int page = ConstantManager.zero,
-    int pageSize = ConstantManager.zero,
+    int pageSize = ConstantManager.paginationPageSize,
     bool fetchAllData = false,
     int filter = 0,
   }) async {
@@ -73,7 +73,7 @@ class HiveBoxesConstant {
           case 3:
             filtered = BalanceEntity(
               totalBalance: data.totalBalance,
-              incomeBalnce: data.incomeBalnce,
+              incomeBalance: data.incomeBalance,
               expensesBalance: data.expensesBalance,
               expenses: data.thisMonth(),
             );
@@ -81,15 +81,15 @@ class HiveBoxesConstant {
           case 2:
             filtered = BalanceEntity(
               totalBalance: data.totalBalance,
-              incomeBalnce: data.incomeBalnce,
+              incomeBalance: data.incomeBalance,
               expensesBalance: data.expensesBalance,
               expenses: data.last7Days(),
             );
             break;
           case 1:
-            filtered = filtered = BalanceEntity(
+            filtered = BalanceEntity(
               totalBalance: data.totalBalance,
-              incomeBalnce: data.incomeBalnce,
+              incomeBalance: data.incomeBalance,
               expensesBalance: data.expensesBalance,
               expenses: data.lastDay(),
             );
@@ -97,6 +97,7 @@ class HiveBoxesConstant {
           default:
             filtered = data;
         }
+        
         return data.paginate(filtered, page, pageSize);
       }
     }
@@ -130,7 +131,7 @@ class HiveBoxesConstant {
 
       final updatedBalance = BalanceEntity(
         totalBalance: balanceEntity.totalBalance,
-        incomeBalnce: incomeBalance,
+        incomeBalance: incomeBalance,
         expensesBalance: expensesBalance,
         expenses: updatedExpenses,
       );
@@ -151,9 +152,8 @@ class HiveBoxesConstant {
 extension BalanceEntityExtensions on BalanceEntity {
   /// Filter expenses by a date range
   List<ExpensesEntity> filterByDateRange(DateTime start, DateTime end) {
-    final format = DateFormat('M/d/y');
     return expenses.where((e) {
-      final expDate = format.parse(e.date);
+      final expDate = DateTime.parse(e.date);
       return expDate.isAfter(start.subtract(const Duration(days: 1))) &&
           expDate.isBefore(end.add(const Duration(days: 1)));
     }).toList();
@@ -165,14 +165,32 @@ extension BalanceEntityExtensions on BalanceEntity {
     int page,
     int pageSize,
   ) {
+    if (source == null) return null;
+    
+    // If pageSize is 0, return all data
+    if (pageSize == 0) {
+      return source;
+    }
+    
     final startIndex = page * pageSize;
-    if (startIndex >= source!.expenses.length) return source;
+    
+    if (startIndex >= source.expenses.length) {
+      return BalanceEntity(
+        totalBalance: source.totalBalance,
+        incomeBalance: source.incomeBalance,
+        expensesBalance: source.expensesBalance,
+        expenses: [],
+      );
+    }
+    
     final endIndex = (startIndex + pageSize).clamp(0, source.expenses.length);
+    final paginatedExpenses = source.expenses.sublist(startIndex, endIndex);
+    
     return BalanceEntity(
-      totalBalance: totalBalance,
-      incomeBalnce: incomeBalnce,
-      expensesBalance: expensesBalance,
-      expenses: source.expenses.sublist(startIndex, endIndex),
+      totalBalance: source.totalBalance,
+      incomeBalance: source.incomeBalance,
+      expensesBalance: source.expensesBalance,
+      expenses: paginatedExpenses,
     );
   }
 

@@ -18,7 +18,6 @@ class _AddExpensesBodyState extends State<_AddExpensesBody> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<ExpensesBloc>();
     return Column(
       children: [
         Expanded(
@@ -30,14 +29,18 @@ class _AddExpensesBodyState extends State<_AddExpensesBody> {
             ].joinWith(AppSize.sH20.szH),
           ),
         ),
-        LoadingButton(
-          title: LocaleKeys.save,
-          btnKey: params.btnKey,
-          margin: EdgeInsets.symmetric(
-            vertical: AppMargin.mH6,
-            horizontal: AppMargin.mW20,
-          ),
-          onTap: () async => bloc.add(AddExpensesEvent(params)),
+        BlocBuilder<ExpensesBloc, ExpensesState>(
+          builder: (context, state) {
+            return LoadingButton(
+              title: LocaleKeys.save,
+              btnKey: params.btnKey,
+              margin: EdgeInsets.symmetric(
+                vertical: AppMargin.mH6,
+                horizontal: AppMargin.mW20,
+              ),
+              onTap: () async => context.read<ExpensesBloc>().add(AddExpensesEvent(params)),
+            );
+          },
         ),
       ],
     );

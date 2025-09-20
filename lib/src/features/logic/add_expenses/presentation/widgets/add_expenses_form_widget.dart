@@ -1,22 +1,29 @@
 part of '../imports/view_imports.dart';
 
-class _AddExpensesFormWidget extends StatelessWidget {
+class _AddExpensesFormWidget extends StatefulWidget {
   final AddExpensesParams params;
   const _AddExpensesFormWidget(this.params);
 
   @override
+  State<_AddExpensesFormWidget> createState() => _AddExpensesFormWidgetState();
+}
+
+class _AddExpensesFormWidgetState extends State<_AddExpensesFormWidget> {
+
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: params.formKey,
+      key: widget.params.formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: AppMargin.mH10,
         children: [
-          _CategoryDropDown(params),
-          _CurrencyDropDown(params),
-          CustomTextFiled(
-            controller: params.amountController,
+          _CategoryDropDown(widget.params),
+          _CurrencyDropDown(widget.params),
+          CustomTextField(
+            controller: widget.params.amountController,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             hint: "${LocaleKeys.enter} ${LocaleKeys.amount}",
             title: LocaleKeys.amount,
@@ -27,13 +34,13 @@ class _AddExpensesFormWidget extends StatelessWidget {
               fieldTitle: LocaleKeys.amount,
             ),
           ),
-          CustomTextFiled(
-            controller: params.dateController,
+          CustomTextField(
+            controller: widget.params.dateController,
             hint: "${LocaleKeys.enter} ${LocaleKeys.date}",
             title: LocaleKeys.date,
             textInputType: TextInputType.datetime,
             textInputAction: TextInputAction.none,
-            onTap: () => params.selectDate(),
+            onTap: () => widget.params.selectDate(),
             suffixIcon: AppAssets.icons.calendar
                 .image(width: AppSize.sH12)
                 .paddingAll(AppPadding.pH10),
@@ -42,13 +49,13 @@ class _AddExpensesFormWidget extends StatelessWidget {
               fieldTitle: LocaleKeys.date,
             ),
           ),
-          CustomTextFiled(
-            controller: params.imageController,
+          CustomTextField(
+            controller: widget.params.imageController,
             hint: LocaleKeys.uploadImage,
             title: LocaleKeys.uploadImage,
             textInputType: TextInputType.none,
             textInputAction: TextInputAction.none,
-            onTap: () => params.uploadImage(),
+            onTap: () => widget.params.uploadImage(),
             suffixIcon: AppAssets.icons.camera
                 .image(width: AppSize.sH12)
                 .paddingAll(AppPadding.pH10),

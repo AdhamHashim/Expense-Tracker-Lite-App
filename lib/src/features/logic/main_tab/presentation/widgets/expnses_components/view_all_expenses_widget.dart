@@ -1,7 +1,24 @@
 part of '../../imports/view_imports.dart';
 
-class _ViewAllExpensesWidget extends StatelessWidget {
+class _ViewAllExpensesWidget extends StatefulWidget {
   const _ViewAllExpensesWidget();
+
+  @override
+  State<_ViewAllExpensesWidget> createState() => _ViewAllExpensesWidgetState();
+}
+
+class _ViewAllExpensesWidgetState extends State<_ViewAllExpensesWidget> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final bloc = context.read<BalanceBloc>();
+      bloc.add(FetchBalanceEvent(
+        page: 0,
+        pageSize: ConstantManager.paginationPageSize,
+      ));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

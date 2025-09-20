@@ -9,8 +9,7 @@ import '../../features/logic/add_expenses/models/category_entity.dart';
 import '../../features/logic/main_tab/models/balance_entity.dart';
 import '../../features/logic/main_tab/models/expenses_entity.dart';
 import '../language/languages.dart';
-import 'package:intl/intl.dart';
-
+ 
 part 'app_sizes.dart';
 part 'color_manager.dart';
 part 'constants_manager.dart';

@@ -1,6 +1,6 @@
 part of '../../imports/view_imports.dart';
 
-class _IncomeWithExpensesWidget extends StatelessWidget {
+class _IncomeWithExpensesWidget extends StatefulWidget {
   final String income, expenses;
   const _IncomeWithExpensesWidget({
     required this.income,
@@ -8,23 +8,34 @@ class _IncomeWithExpensesWidget extends StatelessWidget {
   });
 
   @override
+  State<_IncomeWithExpensesWidget> createState() =>
+      _IncomeWithExpensesWidgetState();
+}
+
+class _IncomeWithExpensesWidgetState extends State<_IncomeWithExpensesWidget> {
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: AppMargin.mH10,
       children: [
-        _IncomeBalanceWidget(income),
-        _ExpensesBalanceWidget(expenses),
+        _IncomeBalanceWidget(widget.income),
+        _ExpensesBalanceWidget(widget.expenses),
       ],
     );
   }
 }
 
-class _IncomeBalanceWidget extends StatelessWidget {
+class _IncomeBalanceWidget extends StatefulWidget {
   final String incomeBalance;
   const _IncomeBalanceWidget(this.incomeBalance);
 
+  @override
+  State<_IncomeBalanceWidget> createState() => _IncomeBalanceWidgetState();
+}
+
+class _IncomeBalanceWidgetState extends State<_IncomeBalanceWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -70,7 +81,7 @@ class _IncomeBalanceWidget extends StatelessWidget {
               ),
               Flexible(
                 child: Text(
-                  incomeBalance,
+                  widget.incomeBalance,
                   style: const TextStyle().setWhiteColor.s22.bold.ellipsis,
                 ),
               ),
@@ -82,10 +93,15 @@ class _IncomeBalanceWidget extends StatelessWidget {
   }
 }
 
-class _ExpensesBalanceWidget extends StatelessWidget {
+class _ExpensesBalanceWidget extends StatefulWidget {
   final String expensesBalance;
   const _ExpensesBalanceWidget(this.expensesBalance);
 
+  @override
+  State<_ExpensesBalanceWidget> createState() => _ExpensesBalanceWidgetState();
+}
+
+class _ExpensesBalanceWidgetState extends State<_ExpensesBalanceWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -131,7 +147,7 @@ class _ExpensesBalanceWidget extends StatelessWidget {
               ),
               Flexible(
                 child: Text(
-                  expensesBalance,
+                  widget.expensesBalance,
                   style: const TextStyle().setWhiteColor.s22.bold.ellipsis,
                 ),
               ),

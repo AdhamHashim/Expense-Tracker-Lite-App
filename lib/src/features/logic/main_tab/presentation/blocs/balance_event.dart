@@ -7,7 +7,7 @@ class FetchBalanceEvent extends BalanceEvent {
   final int page;
   final int pageSize;
   FetchBalanceEvent({
-    this.filter  ,
+    this.filter,
     this.page = 0,
     this.pageSize = 5,
   });

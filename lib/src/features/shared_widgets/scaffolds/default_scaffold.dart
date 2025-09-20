@@ -31,7 +31,7 @@ class DefaultScaffold extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: onTap ?? () => Go.offAll(const HomeScreen()),
+                      onTap: onTap ?? () => Go.back(),
                       child: AppAssets.icons.back.image(
                         height: AppSize.sH16,
                         width: AppSize.sH20,

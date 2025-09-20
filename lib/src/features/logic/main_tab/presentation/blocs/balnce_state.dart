@@ -5,11 +5,14 @@ final class BalanceState extends Equatable {
   final BaseStatus baseStatus;
   final DropDownModel? filter;
   final int page;
+  final bool hasReachedMax;
+  
   const BalanceState({
     required this.balanceEntity,
     required this.baseStatus,
-    this.filter ,
+    this.filter,
     this.page = 0,
+    this.hasReachedMax = false,
   });
 
   factory BalanceState.initial() {
@@ -24,12 +27,14 @@ final class BalanceState extends Equatable {
     BaseStatus? baseStatus,
     DropDownModel? filter,
     int? page,
+    bool? hasReachedMax,
   }) {
     return BalanceState(
       baseStatus: baseStatus ?? this.baseStatus,
       balanceEntity: balanceEntity ?? this.balanceEntity,
       page: page ?? this.page,
       filter: filter ?? this.filter,
+      hasReachedMax: hasReachedMax ?? this.hasReachedMax,
     );
   }
 
@@ -39,5 +44,6 @@ final class BalanceState extends Equatable {
         balanceEntity,
         filter,
         page,
+        hasReachedMax,
       ];
 }

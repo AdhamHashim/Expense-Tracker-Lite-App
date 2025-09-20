@@ -64,7 +64,7 @@ class _CategoriesSectionWidgetState extends State<_CategoriesSectionWidget> {
   }
 }
 
-class CategoryElementWidget extends StatelessWidget {
+class CategoryElementWidget extends StatefulWidget {
   final CategoryEntity categoryEntity;
   final bool selected;
   final bool shoWTitle;
@@ -78,9 +78,14 @@ class CategoryElementWidget extends StatelessWidget {
   });
 
   @override
+  State<CategoryElementWidget> createState() => _CategoryElementWidgetState();
+}
+
+class _CategoryElementWidgetState extends State<CategoryElementWidget> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,15 +97,16 @@ class CategoryElementWidget extends StatelessWidget {
             height: AppSize.sH55,
             padding: EdgeInsets.all(AppPadding.pH8),
             decoration: BoxDecoration(
-              border:
-                  selected ? Border.all(color: AppColors.main, width: 2) : null,
+              border: widget.selected
+                  ? Border.all(color: AppColors.main, width: 2)
+                  : null,
               shape: BoxShape.circle,
               color: AppColors.softBlue.withAlpha(60),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(AppCircular.infinity),
-              child: Image.asset(
-                categoryEntity.icon,
+              child: Image.file(
+                File(widget.categoryEntity.icon),
                 fit: BoxFit.cover,
                 width: AppSize.sH30,
                 height: AppSize.sH30,
@@ -108,11 +114,11 @@ class CategoryElementWidget extends StatelessWidget {
             ),
           ),
           Offstage(
-            offstage: !shoWTitle,
+            offstage: !widget.shoWTitle,
             child: SizedBox(
               width: AppSize.sH55,
               child: Text(
-                categoryEntity.title,
+                widget.categoryEntity.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle().setBlackColor.s12.medium.ellipsis,
               ),
@@ -124,15 +130,21 @@ class CategoryElementWidget extends StatelessWidget {
   }
 }
 
-class _AddCategoryElementWidget extends StatelessWidget {
+class _AddCategoryElementWidget extends StatefulWidget {
   final AddExpensesParams params;
   const _AddCategoryElementWidget(this.params);
 
   @override
+  State<_AddCategoryElementWidget> createState() =>
+      _AddCategoryElementWidgetState();
+}
+
+class _AddCategoryElementWidgetState extends State<_AddCategoryElementWidget> {
+  @override
   Widget build(BuildContext context) {
     final bloc = context.read<CategoryBloc>();
     return GestureDetector(
-      onTap: () => addCategoryModelSheet(bloc, params),
+      onTap: () => addCategoryModelSheet(bloc, widget.params),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

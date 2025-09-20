@@ -53,75 +53,10 @@ Dio (for networking)
 📌 Why Use This Template?
 This template is intended to reduce boilerplate and encourage separation of concerns from the start of your Flutter project. It is perfect for developers who want a head start on building production-level apps using clean architectural principles.
 
-#------------------------------------------- APP_Guide --------------------------------------------------
-# Project Title :  APP_NAM#
-
-# Project BackEnd : PHP OR ASP.NET
-
-## Project Description : APP_SECRIPTION
-
-**The main idea**
-
-**Types of users**
-
-1. USERS
-
-
-**FLUTTER_VERSION** : 3.35.1
-
-## Links for development :
-
-1. [postman collection](ADD_LINK_HERE)
-
-2. [UI](ADD_LINK_HERE)
-
-3. [Test_file](TEST_FILE_LINK)
-
-## Dashboard :
-
-1. [Link](DASHBOARD_LINK)
-2. dashboard account :
-   - email : EMAIL
-   - password : PASS
-
-## Accounts for App :
-[USER]===> 
-
-
-## Links for project :
-
-1. [App in app store]()
-2. [App in google play]()
-
-## Google Key Data :
-
-- GOOGLE_MAP_KEY
-
-## App Bundle :
-
-- APP_BUNDLE
-
-## FireBase :
-
-1. FIREBASE_ACCOUNT_HOLDER
-   - 
-2. PROJECT_NAME_IN_FIREBASE
-   - 
-
-## Team members :
-
-1. **Flutter**
-   - DEVELOPER_NAME
-
-2. **Backend**
-   - DEVELOPER_NAME
-
-3. **Testing**
-   - DEVELOPER_NAME
 
 ## Image :
 
-![Logo](assets/svg/logo.svg)
+![Logo](assets/icons/app_icon.png)
 
 
 ## Localization Generator:
@@ -141,17 +76,4 @@ dart pub global activate flutter_gen
 ```bash
 dart run build_runner build
 ```
-### Run This Command To Generate Feature Used in This Project By Script
-```bash
-dart scripts/create_feature.dart +feature name
-```
-
-### Run This Command To Generate Models 
-```bash
-dart run tool/generate_models.dart
-```
-### After Files generate Run This Command 
-```bash
-flutter pub run build_runner build --delete-conflicting-outputs
-```
-
+ 

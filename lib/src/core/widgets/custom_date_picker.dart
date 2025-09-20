@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../config/language/languages.dart';
 import '../../config/res/config_imports.dart';
 import '../navigation/navigator.dart';
@@ -37,10 +36,7 @@ Future<DateTime?> showCustomDatePicker({
     },
   );
   if (pickedDate != null) {
-    final String formattedDate = DateFormat(dateFormat ?? 'M/d/y',
-            Languages.currentLanguage.locale.languageCode)
-        .format(pickedDate);
-    controller.text = formattedDate;
+    controller.text = pickedDate.toString();
   }
   return pickedDate;
 }

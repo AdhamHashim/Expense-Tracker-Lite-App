@@ -1,8 +1,13 @@
 part of '../../imports/view_imports.dart';
 
-class _BalanceCarWidget extends StatelessWidget {
+class _BalanceCarWidget extends StatefulWidget {
   const _BalanceCarWidget();
 
+  @override
+  State<_BalanceCarWidget> createState() => _BalanceCarWidgetState();
+}
+
+class _BalanceCarWidgetState extends State<_BalanceCarWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,7 +32,7 @@ class _BalanceCarWidget extends StatelessWidget {
                   children: [
                     _TotalBalanceWidget("${state.totalBalance}"),
                     _IncomeWithExpensesWidget(
-                      income: "${state.incomeBalnce}",
+                      income: "${state.incomeBalance}",
                       expenses: "${state.expensesBalance}",
                     ),
                   ],

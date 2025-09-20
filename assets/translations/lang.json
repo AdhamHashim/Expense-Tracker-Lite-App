@@ -59,5 +59,6 @@
     "allExpenses#$All Expenses": "All Expenses",
     "thisMonth#$This Month": " This Month",
     "lastSevenDay#$Last 7 Days": "Last 7 Days",
-    "lastDay#$Last Day": "Last Day"
+    "lastDay#$Last Day": "Last Day",
+    "loadingExpenses#$Loading expenses":"Loading expenses"
 }

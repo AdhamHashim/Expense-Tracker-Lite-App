@@ -1,9 +1,14 @@
 part of '../../imports/view_imports.dart';
 
-class _TotalBalanceWidget extends StatelessWidget {
+class _TotalBalanceWidget extends StatefulWidget {
   final String totalBalance;
   const _TotalBalanceWidget(this.totalBalance);
 
+  @override
+  State<_TotalBalanceWidget> createState() => _TotalBalanceWidgetState();
+}
+
+class _TotalBalanceWidgetState extends State<_TotalBalanceWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -11,7 +16,7 @@ class _TotalBalanceWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: AppMargin.mH10,
       children: [
-        _BalanceWidget(totalBalance),
+        _BalanceWidget(widget.totalBalance),
         AppAssets.icons.more.image(
           width: AppSize.sW20,
           height: AppSize.sH20,
@@ -22,10 +27,15 @@ class _TotalBalanceWidget extends StatelessWidget {
   }
 }
 
-class _BalanceWidget extends StatelessWidget {
+class _BalanceWidget extends StatefulWidget {
   final String totalBalance;
   const _BalanceWidget(this.totalBalance);
 
+  @override
+  State<_BalanceWidget> createState() => _BalanceWidgetState();
+}
+
+class _BalanceWidgetState extends State<_BalanceWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,7 +70,7 @@ class _BalanceWidget extends StatelessWidget {
               color: AppColors.white,
             ),
             Text(
-              totalBalance,
+              widget.totalBalance,
               style: const TextStyle().setWhiteColor.s22.bold,
             ),
           ],

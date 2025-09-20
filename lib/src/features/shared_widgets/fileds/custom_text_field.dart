@@ -1,6 +1,6 @@
 part of '../imports/shared_widgets_imports.dart';
 
-class CustomTextFiled extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String hint;
   final String? title;
   final TextEditingController? controller;
@@ -20,7 +20,7 @@ class CustomTextFiled extends StatelessWidget {
   final bool readOnly;
   final FocusNode? focusNode;
 
-  const CustomTextFiled({
+  const CustomTextField({
     super.key,
     this.title,
     required this.hint,

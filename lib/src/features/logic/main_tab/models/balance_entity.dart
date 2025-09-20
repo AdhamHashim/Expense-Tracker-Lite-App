@@ -7,13 +7,13 @@ import 'expenses_entity.dart';
 
 class BalanceEntity {
   final double totalBalance;
-  final double incomeBalnce;
+  final double incomeBalance;
   final double expensesBalance;
   final List<ExpensesEntity> expenses;
 
   const BalanceEntity({
     required this.totalBalance,
-    required this.incomeBalnce,
+    required this.incomeBalance,
     required this.expensesBalance,
     required this.expenses,
   });
@@ -21,7 +21,7 @@ class BalanceEntity {
   factory BalanceEntity.initial() {
     return const BalanceEntity(
       totalBalance: 10000,
-      incomeBalnce: 0,
+      incomeBalance: 0,
       expensesBalance: 0,
       expenses: [],
     );
@@ -30,7 +30,7 @@ class BalanceEntity {
   factory BalanceEntity.fromJson(Map<String, dynamic> json) {
     return BalanceEntity(
       totalBalance: json['totalBalance'],
-      incomeBalnce: json['incomeBalnce'],
+      incomeBalance: json['incomeBalance'],
       expensesBalance: json['expensesBalance'],
       expenses: (jsonDecode(json['expenses']) as List)
           .map((e) => ExpensesEntity.fromJson(e))
@@ -40,7 +40,7 @@ class BalanceEntity {
 
   Map<String, dynamic> toJson() => {
         "totalBalance": totalBalance,
-        "incomeBalnce": incomeBalnce,
+        "incomeBalance": incomeBalance,
         "expensesBalance": expensesBalance,
         "expenses": jsonEncode(expenses.map((e) => e.toJson()).toList()),
       };
@@ -50,7 +50,7 @@ class BalanceEntityAdapter extends TypeAdapter<BalanceEntity> {
   @override
   BalanceEntity read(BinaryReader reader) {
     final totalBalance = reader.readDouble();
-    final incomeBalnce = reader.readDouble();
+    final incomeBalance = reader.readDouble();
     final expensesBalance = reader.readDouble();
     // Read the list
     final expensesLength = reader.readInt();
@@ -60,7 +60,7 @@ class BalanceEntityAdapter extends TypeAdapter<BalanceEntity> {
     }
     return BalanceEntity(
       totalBalance: totalBalance,
-      incomeBalnce: incomeBalnce,
+      incomeBalance: incomeBalance,
       expensesBalance: expensesBalance,
       expenses: expenses,
     );
@@ -72,7 +72,7 @@ class BalanceEntityAdapter extends TypeAdapter<BalanceEntity> {
   @override
   void write(BinaryWriter writer, BalanceEntity object) {
     writer.writeDouble(object.totalBalance);
-    writer.writeDouble(object.incomeBalnce);
+    writer.writeDouble(object.incomeBalance);
     writer.writeDouble(object.expensesBalance);
     // Write the list
     writer.writeInt(object.expenses.length);
